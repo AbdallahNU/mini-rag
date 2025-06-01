@@ -20,3 +20,8 @@ $ conda activate mini-rag
 $ pip install -r requirements.txt
 ```
 4) create .env file using the example.env file with your own credintials
+
+#### Running the Application
+```bash
+$ uvicorn main:app --reload --host 0.0.0.0 --port 5000
+```
