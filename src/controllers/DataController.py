@@ -32,7 +32,7 @@ class DataController(BaseController):
         cleaned_file_name = self.get_cleaned_file_name(original_file_name)
 
         unique_file_name = f"{random_string}_{cleaned_file_name}"
-        return os.path.join(project_path, unique_file_name)
+        return os.path.join(project_path, unique_file_name), unique_file_name
 
     def get_cleaned_file_name(self, file_name: str) -> str:
         """

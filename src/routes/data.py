@@ -3,6 +3,7 @@ from fastapi.responses import JSONResponse
 from helpers.config import get_settings, Settings
 from controllers import DataController, ProjectController
 from models.enums import RespponseSignal
+from routes.schemas import DataSchema
 import logging
 import aiofiles
 
@@ -37,7 +38,7 @@ async def upload_data(project_id: str, file: UploadFile, settings: Settings=Depe
         )
     
     # save file
-    file_path = data_controller.generate_unique_filename(file.filename, project_id)
+    file_path, unique_file_name = data_controller.generate_unique_filename(file.filename, project_id)
 
     try:
         async with aiofiles.open(file_path, "wb") as f:
@@ -56,5 +57,9 @@ async def upload_data(project_id: str, file: UploadFile, settings: Settings=Depe
        
     return JSONResponse(
         status_code=status.HTTP_200_OK,
-        content={"message": RespponseSignal.UPLOAD_SUCCESS.value}
+        content={"message": RespponseSignal.UPLOAD_SUCCESS.value, "file_name": unique_file_name}
     )
+
+@data_router.post("/process/{project_id}")
+async def process_data(project_id: str, process_data: DataSchema) -> dict:
+    return {"file_id": process_data.file_id}

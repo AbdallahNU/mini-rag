@@ -1,6 +1,6 @@
 # mini-rag
 
-I this project we will implement a mini RAG application for question answering.
+In this project we will implement a mini RAG application for question answering.
 
 ## Requirements
 - MiniConda
@@ -19,9 +19,17 @@ $ conda activate mini-rag
 ```bash
 $ pip install -r requirements.txt
 ```
-4) create .env file using the example.env file with your own credintials
+4) create .env file using the .env.example file with your own credintials
+```bash
+$ cp .env.example .env
+```
+5) install pre-commit hooks 
+```bash
+$ pre-commit install
+```
 
 #### Running the Application
 ```bash
+$ cd src
 $ uvicorn main:app --reload --host 0.0.0.0 --port 5000
 ```
